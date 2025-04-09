@@ -1,0 +1,21 @@
+<p>control-flow works!</p>
+
+<h2>Angular 16</h2>
+
+<div *ngIf="mostrar">
+  <p>Será mostrado caso a variável mostrar seja verdadeira</p>
+</div>
+
+<h2 *ngIf="color === 'green'" ngClass="color-green">
+      O palmeiras não....
+</h2>
+
+<h2>Else</h2>
+
+<div *ngIf="color === 'green'; else elseBlock">
+      <p>cor verde</p>
+</div>
+
+<ng-template #elseBlock>
+  <p>Bloco do else</p>
+</ng-template>
