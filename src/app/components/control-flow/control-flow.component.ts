@@ -11,6 +11,17 @@ import { Component } from '@angular/core';
 export class ControlFlowComponent {
   mostrar: boolean = true;
   color: string = "green";
+  cores = ["azul", "amarelo", "vermelho"];
+  itemSelecionado:string = 'um';
+  mes:number = 1;
+
+  trocarValor(event:Event) : void{
+    const elementoSelecionado = event.target as HTMLSelectElement
+    this.itemSelecionado = elementoSelecionado.value
+
+  }
+
+
   constructor(){
 
   }
