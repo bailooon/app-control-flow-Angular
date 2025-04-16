@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 })
 export class PropertieBindingComponent {
   imgUrl = "../../../assets/pexels-sebastian-ervi-866902-1763075.jpg";
-  isDisabled = false;
+  isDisabled = true;
   descImg = "Banda de rock"
 
 }
