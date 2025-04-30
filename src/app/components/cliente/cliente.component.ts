@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class ClienteComponent {
   clienteForm: FormGroup = new FormGroup({})
   cliente: Cliente[] = []
+  clienteIdEdicao: string | null = null
 
   constructor(private clienteService: ClienteService, private formBuilder: FormBuilder) {
     this.clienteForm = formBuilder.group({
@@ -47,19 +48,50 @@ export class ClienteComponent {
   save() {
     if (this.clienteForm.valid) {
       const formData = this.clienteForm.value
-      const clienteAdd: Cliente = {
-        id: this.generateRandomString(6),
-        nome: formData.nome,
-        telefone: formData.telefone
+
+      if(this.clienteIdEdicao){
+        const clienteUpdate:Cliente = {
+          id:this.clienteIdEdicao,
+          nome:formData.nome,
+          telefone:formData.telefone
+        }
+
+        this.clienteService.update(this.clienteIdEdicao,clienteUpdate)
+        alert('Alterado com sucesso')
+
+      }else{
+        const clienteAdd: Cliente = {
+          id: this.generateRandomString(6),
+          nome: formData.nome,
+          telefone: formData.telefone
+        }
+        // console.log(clienteAdd)
+        this.clienteService.add(clienteAdd) //Chamando a service para inserir
+        alert('Inserido com sucesso') // Enviando feedback ao usuário
+        this.list() //chamar service e recarrega com o item inserido
       }
-      // console.log(clienteAdd)
-      this.clienteService.add(clienteAdd) //Chamando a service para inserir
-      alert('Inserido com sucesso') // Enviando feedback ao usuário
-      this.clienteForm.reset // Limpar o form após o preenchimento
-      this.list()
+
     } else {
       alert('Por favor preencher os campos obrigatórios')
     }
+    this.clienteForm.reset // Limpar o form após o preenchimento
+  }
+
+  editar(id:string):void{
+    //buscando todos os clientes e filtrando pelo id enviado como parâmetro
+    const cliente = this.clienteService.list().find(c => c.id == id)
+    if(cliente){
+      this.clienteIdEdicao = cliente.id
+
+      this.clienteForm.patchValue(
+        {
+          nome: cliente.nome,
+          telefone: cliente.telefone
+      }
+    )
+    }
+
+    console.log(cliente)
   }
 
 }
