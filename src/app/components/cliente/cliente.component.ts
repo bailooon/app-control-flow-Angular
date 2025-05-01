@@ -49,17 +49,17 @@ export class ClienteComponent {
     if (this.clienteForm.valid) {
       const formData = this.clienteForm.value
 
-      if(this.clienteIdEdicao){
-        const clienteUpdate:Cliente = {
-          id:this.clienteIdEdicao,
-          nome:formData.nome,
-          telefone:formData.telefone
+      if (this.clienteIdEdicao) {
+        const clienteUpdate: Cliente = {
+          id: this.clienteIdEdicao,
+          nome: formData.nome,
+          telefone: formData.telefone
         }
 
-        this.clienteService.update(this.clienteIdEdicao,clienteUpdate)
+        this.clienteService.update(this.clienteIdEdicao, clienteUpdate)
         alert('Alterado com sucesso')
 
-      }else{
+      } else {
         const clienteAdd: Cliente = {
           id: this.generateRandomString(6),
           nome: formData.nome,
@@ -77,21 +77,25 @@ export class ClienteComponent {
     this.clienteForm.reset // Limpar o form após o preenchimento
   }
 
-  editar(id:string):void{
+  editar(id: string): void {
     //buscando todos os clientes e filtrando pelo id enviado como parâmetro
     const cliente = this.clienteService.list().find(c => c.id == id)
-    if(cliente){
+    if (cliente) {
       this.clienteIdEdicao = cliente.id
 
       this.clienteForm.patchValue(
         {
           nome: cliente.nome,
           telefone: cliente.telefone
-      }
-    )
+        }
+      )
     }
 
     console.log(cliente)
+  }
+
+  remover(id: string): void {
+    this.clienteService.remove(id)
   }
 
 }

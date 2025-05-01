@@ -11,7 +11,7 @@
   <p>
     <button type="submit">
       {{
-        clienteIdEdicao ? "Atualizar" : "Cadastrar"
+      clienteIdEdicao ? "Atualizar" : "Cadastrar"
       }}
     </button>
   </p>
@@ -33,6 +33,7 @@
       <td>{{ item.nome }}</td>
       <td>{{ item.telefone }}</td>
       <td><input type="button" (click)="editar(item.id)" value="editar" /></td>
+      <td><input type="button" (click)="remover(item.id)" value="remover" /></td>
     </tr>
 
     }
