@@ -66,7 +66,7 @@ export class ClienteComponent {
           telefone: formData.telefone
         }
         // console.log(clienteAdd)
-        this.clienteService.add(clienteAdd) //Chamando a service para inserir
+        this.clienteService.add(clienteAdd).subscribe() //Chamando a service para inserir
         alert('Inserido com sucesso') // Enviando feedback ao usuário
         this.list() //chamar service e recarrega com o item inserido
       }
@@ -75,6 +75,7 @@ export class ClienteComponent {
       alert('Por favor preencher os campos obrigatórios')
     }
     this.clienteForm.reset // Limpar o form após o preenchimento
+    this.list();
   }
 
   editar(id: string): void {
